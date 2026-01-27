@@ -3,75 +3,91 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Luxury Player</title>
+<title>Music Player</title>
 
 <style>
-  body {
-    margin: 0;
-    background: transparent;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    font-family: 'Segoe UI', sans-serif;
+  body{
+    margin:0;
+    background:transparent;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    font-family:'Segoe UI',sans-serif;
   }
 
-  .player {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 12px 16px;
-    border-radius: 18px;
-    width: 300px;
-    background: rgba(10,10,10,0.85);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 12px 35px rgba(0,0,0,0.5);
-    border: 1px solid rgba(255,215,150,0.25);
+  /* CONTENEDOR TRANSPARENTE */
+  .player{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:10px 14px;
+    width:280px;
+    background:transparent;            /* 👈 SIN FONDO */
+    box-sizing:border-box;
   }
 
-  .play {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    border: none;
-    background: linear-gradient(135deg,#ffd27d,#c99700);
-    color: #1a1a1a;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 0 12px rgba(255,210,125,0.6);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  /* BOTÓN DORADO */
+  .play{
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    border:none;
+    background:radial-gradient(circle at top,
+      #fff3c9,
+      #e2b45f
+    );
+    color:#3a1c4a;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:
+      0 0 14px rgba(226,180,95,.75),
+      inset 0 -2px 6px rgba(0,0,0,.15);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .play:hover{
+    transform:scale(1.06);
+    box-shadow:
+      0 0 18px rgba(226,180,95,.95),
+      inset 0 -2px 6px rgba(0,0,0,.15);
   }
 
-  .track {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    flex: 1;
+  .track{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    flex:1;
   }
 
-  .title {
-    font-size: 12px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: #f5d37a;
-    font-weight: 600;
+  .title{
+    font-size:12px;
+    font-weight:600;
+    color:#6a2a7a;          /* lila elegante */
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
   }
 
-  .bar {
-    height: 4px;
-    background: rgba(255,255,255,0.15);
-    border-radius: 4px;
-    overflow: hidden;
+  /* BARRA TRANSPARENTE */
+  .bar{
+    height:5px;
+    background:rgba(0,0,0,.15);
+    border-radius:6px;
+    overflow:hidden;
   }
 
-  .progress {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg,#ffd27d,#ffffff);
-    box-shadow: 0 0 10px rgba(255,210,125,0.8);
+  .progress{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,
+      #e2b45f,   /* dorado */
+      #ffd98a
+    );
+    box-shadow:0 0 10px rgba(226,180,95,.8);
   }
 </style>
 </head>
@@ -82,7 +98,7 @@
   <button class="play" id="playBtn">▶</button>
 
   <div class="track">
-    <div class="title">Tema principal</div>
+    <div class="title">Tu canción</div>
     <div class="bar">
       <div class="progress" id="progress"></div>
     </div>
@@ -96,27 +112,27 @@
   const playBtn = document.getElementById("playBtn");
   const progress = document.getElementById("progress");
 
-  playBtn.addEventListener("click", () => {
-    if (audio.paused) {
+  playBtn.onclick = () => {
+    if (audio.paused){
       audio.play();
       playBtn.textContent = "❚❚";
     } else {
       audio.pause();
       playBtn.textContent = "▶";
     }
-  });
+  };
 
-  audio.addEventListener("timeupdate", () => {
-    if (audio.duration) {
-      const percent = (audio.currentTime / audio.duration) * 100;
-      progress.style.width = percent + "%";
+  audio.ontimeupdate = () => {
+    if (audio.duration){
+      progress.style.width =
+        (audio.currentTime / audio.duration) * 100 + "%";
     }
-  });
+  };
 
-  audio.addEventListener("ended", () => {
+  audio.onended = () => {
     playBtn.textContent = "▶";
     progress.style.width = "0%";
-  });
+  };
 </script>
 
 </body>
