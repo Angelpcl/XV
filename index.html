@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Music Player</title>
+<title>Luxury Player</title>
 
 <style>
   body {
@@ -13,38 +13,33 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', sans-serif;
   }
 
   .player {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 10px 14px;
-    border-radius: 16px;
-    width: 280px;
-    background: linear-gradient(135deg,
-      #c77dff,   /* lila */
-      #ff77a9,   /* rosa */
-      #f5c77a    /* dorado */
-    );
-    box-shadow: 0 8px 22px rgba(0,0,0,0.3);
-    box-sizing: border-box;
+    gap: 14px;
+    padding: 12px 16px;
+    border-radius: 18px;
+    width: 300px;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.5);
+    border: 1px solid rgba(255,215,150,0.25);
   }
 
   .play {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     border: none;
-    background: radial-gradient(circle at top,
-      #fff6cf,
-      #e0b45a
-    );
-    color: #3a1c4a;
+    background: linear-gradient(135deg,#ffd27d,#c99700);
+    color: #1a1a1a;
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
+    box-shadow: 0 0 12px rgba(255,210,125,0.6);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -53,22 +48,21 @@
   .track {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
     flex: 1;
   }
 
   .title {
     font-size: 12px;
-    font-weight: bold;
-    color: #2b0f3a;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #f5d37a;
+    font-weight: 600;
   }
 
   .bar {
-    height: 5px;
-    background: rgba(255,255,255,0.4);
+    height: 4px;
+    background: rgba(255,255,255,0.15);
     border-radius: 4px;
     overflow: hidden;
   }
@@ -76,10 +70,8 @@
   .progress {
     height: 100%;
     width: 0%;
-    background: linear-gradient(90deg,
-      #2b0f3a,
-      #ffffff
-    );
+    background: linear-gradient(90deg,#ffd27d,#ffffff);
+    box-shadow: 0 0 10px rgba(255,210,125,0.8);
   }
 </style>
 </head>
@@ -90,7 +82,7 @@
   <button class="play" id="playBtn">▶</button>
 
   <div class="track">
-    <div class="title">Tu canción</div>
+    <div class="title">Tema principal</div>
     <div class="bar">
       <div class="progress" id="progress"></div>
     </div>
