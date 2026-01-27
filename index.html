@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Music Player</title>
+
+<style>
+  body {
+    margin: 0;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+  }
+
+  .player {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: 16px;
+    width: 280px;
+    background: linear-gradient(135deg,
+      #c77dff,   /* lila */
+      #ff77a9,   /* rosa */
+      #f5c77a    /* dorado */
+    );
+    box-shadow: 0 8px 22px rgba(0,0,0,0.3);
+    box-sizing: border-box;
+  }
+
+  .play {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: radial-gradient(circle at top,
+      #fff6cf,
+      #e0b45a
+    );
+    color: #3a1c4a;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .track {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+  }
+
+  .title {
+    font-size: 12px;
+    font-weight: bold;
+    color: #2b0f3a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .bar {
+    height: 5px;
+    background: rgba(255,255,255,0.4);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .progress {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg,
+      #2b0f3a,
+      #ffffff
+    );
+  }
+</style>
+</head>
+
+<body>
+
+<div class="player">
+  <button class="play" id="playBtn">▶</button>
+
+  <div class="track">
+    <div class="title">Tu canción</div>
+    <div class="bar">
+      <div class="progress" id="progress"></div>
+    </div>
+  </div>
+</div>
+
+<audio id="audio" src="cancion.mp3"></audio>
+
+<script>
+  const audio = document.getElementById("audio");
+  const playBtn = document.getElementById("playBtn");
+  const progress = document.getElementById("progress");
+
+  playBtn.addEventListener("click", () => {
+    if (audio.paused) {
+      audio.play();
+      playBtn.textContent = "❚❚";
+    } else {
+      audio.pause();
+      playBtn.textContent = "▶";
+    }
+  });
+
+  audio.addEventListener("timeupdate", () => {
+    if (audio.duration) {
+      const percent = (audio.currentTime / audio.duration) * 100;
+      progress.style.width = percent + "%";
+    }
+  });
+
+  audio.addEventListener("ended", () => {
+    playBtn.textContent = "▶";
+    progress.style.width = "0%";
+  });
+</script>
+
+</body>
+</html>
