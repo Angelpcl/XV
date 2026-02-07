@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Music Player</title>
+<title>Music Button Elegant</title>
 
 <style>
   body{
@@ -13,125 +13,95 @@
     justify-content:center;
     align-items:center;
     height:100vh;
-    font-family:'Segoe UI',sans-serif;
   }
 
-  /* CONTENEDOR TRANSPARENTE */
-  .player{
-    display:flex;
-    align-items:center;
-    gap:14px;
-    padding:10px 14px;
-    width:280px;
-    background:transparent;            /* 👈 SIN FONDO */
-    box-sizing:border-box;
-  }
-
-  /* BOTÓN DORADO */
-  .play{
-    width:44px;
-    height:44px;
+  .music-btn{
+    width:60px;
+    height:60px;
     border-radius:50%;
-    border:none;
-    background:radial-gradient(circle at top,
-      #fff3c9,
-      #e2b45f
-    );
-    color:#3a1c4a;
-    font-size:18px;
-    font-weight:bold;
+    border:2px solid rgba(255,255,255,.55);
     cursor:pointer;
+
+    background:
+      radial-gradient(circle at top,
+        #fff9e8 0%,
+        #f3d08b 40%,
+        #e2b45f 100%
+      );
+
+    color:#7a3b8f;
+    font-size:20px;
     display:flex;
     align-items:center;
     justify-content:center;
+
     box-shadow:
-      0 0 14px rgba(226,180,95,.75),
-      inset 0 -2px 6px rgba(0,0,0,.15);
-    transition:transform .15s ease, box-shadow .15s ease;
+      0 10px 20px rgba(0,0,0,.18),
+      0 0 25px rgba(226,180,95,.8),
+      inset 0 2px 6px rgba(255,255,255,.6),
+      inset 0 -6px 10px rgba(0,0,0,.15);
+
+    transition:transform .25s ease, box-shadow .25s ease;
   }
-  .play:hover{
-    transform:scale(1.06);
+
+  .music-btn:hover{
+    transform:scale(1.1);
     box-shadow:
-      0 0 18px rgba(226,180,95,.95),
-      inset 0 -2px 6px rgba(0,0,0,.15);
+      0 12px 24px rgba(0,0,0,.22),
+      0 0 35px rgba(226,180,95,1),
+      inset 0 2px 6px rgba(255,255,255,.6),
+      inset 0 -6px 10px rgba(0,0,0,.15);
   }
 
-  .track{
-    display:flex;
-    flex-direction:column;
-    gap:6px;
-    flex:1;
+  .music-btn.playing{
+    animation:glow 1.8s infinite ease-in-out;
   }
 
-  .title{
-    font-size:12px;
-    font-weight:600;
-    color:#6a2a7a;          /* lila elegante */
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-  }
-
-  /* BARRA TRANSPARENTE */
-  .bar{
-    height:5px;
-    background:rgba(0,0,0,.15);
-    border-radius:6px;
-    overflow:hidden;
-  }
-
-  .progress{
-    height:100%;
-    width:0%;
-    background:linear-gradient(90deg,
-      #e2b45f,   /* dorado */
-      #ffd98a
-    );
-    box-shadow:0 0 10px rgba(226,180,95,.8);
+  @keyframes glow{
+    0%{
+      box-shadow:
+        0 0 18px rgba(226,180,95,.6),
+        inset 0 2px 6px rgba(255,255,255,.6);
+    }
+    50%{
+      box-shadow:
+        0 0 40px rgba(226,180,95,1),
+        inset 0 2px 6px rgba(255,255,255,.6);
+    }
+    100%{
+      box-shadow:
+        0 0 18px rgba(226,180,95,.6),
+        inset 0 2px 6px rgba(255,255,255,.6);
+    }
   }
 </style>
 </head>
 
 <body>
 
-<div class="player">
-  <button class="play" id="playBtn">▶</button>
-
-  <div class="track">
-    <div class="title">Tu canción</div>
-    <div class="bar">
-      <div class="progress" id="progress"></div>
-    </div>
-  </div>
-</div>
+<button class="music-btn" id="musicBtn">▶</button>
 
 <audio id="audio" src="cancion.mp3"></audio>
 
 <script>
   const audio = document.getElementById("audio");
-  const playBtn = document.getElementById("playBtn");
-  const progress = document.getElementById("progress");
+  const btn = document.getElementById("musicBtn");
 
-  playBtn.onclick = () => {
-    if (audio.paused){
+  btn.onclick = () => {
+    if(audio.paused){
       audio.play();
-      playBtn.textContent = "❚❚";
-    } else {
+      btn.textContent = "❚❚";
+      btn.classList.add("playing");
+    }else{
       audio.pause();
-      playBtn.textContent = "▶";
-    }
-  };
-
-  audio.ontimeupdate = () => {
-    if (audio.duration){
-      progress.style.width =
-        (audio.currentTime / audio.duration) * 100 + "%";
+      btn.textContent = "▶";
+      btn.classList.remove("playing");
     }
   };
 
   audio.onended = () => {
-    playBtn.textContent = "▶";
-    progress.style.width = "0%";
+    btn.textContent = "▶";
+    btn.classList.remove("playing");
   };
 </script>
 
