@@ -3,83 +3,76 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Music Button Elegant</title>
 
 <style>
   body{
     margin:0;
     background:transparent;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
+  }
+
+  /* SOLO CELULAR */
+  @media (min-width: 769px){
+    .music-wrapper{
+      display:none;
+    }
+  }
+
+  .music-wrapper{
+    position:fixed;
+    bottom:18px;
+    right:18px;
+    z-index:9999;
   }
 
   .music-btn{
-    width:60px;
-    height:60px;
+    width:40px;
+    height:40px;
     border-radius:50%;
-    border:2px solid rgba(255,255,255,.55);
+    border:1px solid rgba(255,255,255,.4);
     cursor:pointer;
 
-    background:
-      radial-gradient(circle at top,
-        #fff9e8 0%,
-        #f3d08b 40%,
-        #e2b45f 100%
-      );
+    background:rgba(255,255,255,.15);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
 
     color:#7a3b8f;
-    font-size:20px;
+    font-size:14px;
+
     display:flex;
     align-items:center;
     justify-content:center;
 
     box-shadow:
-      0 10px 20px rgba(0,0,0,.18),
-      0 0 25px rgba(226,180,95,.8),
-      inset 0 2px 6px rgba(255,255,255,.6),
-      inset 0 -6px 10px rgba(0,0,0,.15);
+      0 8px 20px rgba(0,0,0,.25),
+      inset 0 1px 2px rgba(255,255,255,.6);
 
-    transition:transform .25s ease, box-shadow .25s ease;
+    transition:all .25s ease;
   }
 
   .music-btn:hover{
     transform:scale(1.1);
     box-shadow:
-      0 12px 24px rgba(0,0,0,.22),
-      0 0 35px rgba(226,180,95,1),
-      inset 0 2px 6px rgba(255,255,255,.6),
-      inset 0 -6px 10px rgba(0,0,0,.15);
+      0 10px 25px rgba(0,0,0,.35),
+      0 0 18px rgba(255,215,160,.7);
   }
 
   .music-btn.playing{
-    animation:glow 1.8s infinite ease-in-out;
+    animation:pulse 1.8s infinite ease-in-out;
   }
 
-  @keyframes glow{
-    0%{
-      box-shadow:
-        0 0 18px rgba(226,180,95,.6),
-        inset 0 2px 6px rgba(255,255,255,.6);
-    }
-    50%{
-      box-shadow:
-        0 0 40px rgba(226,180,95,1),
-        inset 0 2px 6px rgba(255,255,255,.6);
-    }
-    100%{
-      box-shadow:
-        0 0 18px rgba(226,180,95,.6),
-        inset 0 2px 6px rgba(255,255,255,.6);
-    }
+  @keyframes pulse{
+    0%{ box-shadow:0 0 10px rgba(255,215,160,.4); }
+    50%{ box-shadow:0 0 26px rgba(255,215,160,.9); }
+    100%{ box-shadow:0 0 10px rgba(255,215,160,.4); }
   }
 </style>
 </head>
 
 <body>
 
-<button class="music-btn" id="musicBtn">▶</button>
+<div class="music-wrapper">
+  <button class="music-btn" id="musicBtn">▶</button>
+</div>
 
 <audio id="audio" src="cancion.mp3"></audio>
 
@@ -89,9 +82,21 @@
 
   btn.onclick = () => {
     if(audio.paused){
+      audio.volume = 0;
       audio.play();
       btn.textContent = "❚❚";
       btn.classList.add("playing");
+
+      let vol = 0;
+      const fade = setInterval(() => {
+        if(vol < 0.5){
+          vol += 0.02;
+          audio.volume = vol;
+        } else {
+          clearInterval(fade);
+        }
+      }, 80);
+
     }else{
       audio.pause();
       btn.textContent = "▶";
