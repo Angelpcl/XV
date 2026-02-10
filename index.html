@@ -1,1 +1,81 @@
-<!DOCTYPE html> <html lang="es"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Music Button Elegant</title> <style> body{ margin:0; background:transparent; display:flex; justify-content:center; align-items:center; height:100vh; } .music-btn{ width:60px; height:60px; border-radius:50%; border:2px solid rgba(255,255,255,.55); cursor:pointer; background: radial-gradient(circle at top, #fff9e8 0%, #f3d08b 40%, #e2b45f 100% ); color:#7a3b8f; font-size:20px; display:flex; align-items:center; justify-content:center; box-shadow: 0 10px 20px rgba(0,0,0,.18), 0 0 25px rgba(226,180,95,.8), inset 0 2px 6px rgba(255,255,255,.6), inset 0 -6px 10px rgba(0,0,0,.15); transition:transform .25s ease, box-shadow .25s ease; } .music-btn:hover{ transform:scale(1.1); box-shadow: 0 12px 24px rgba(0,0,0,.22), 0 0 35px rgba(226,180,95,1), inset 0 2px 6px rgba(255,255,255,.6), inset 0 -6px 10px rgba(0,0,0,.15); } .music-btn.playing{ animation:glow 1.8s infinite ease-in-out; } @keyframes glow{ 0%{ box-shadow: 0 0 18px rgba(226,180,95,.6), inset 0 2px 6px rgba(255,255,255,.6); } 50%{ box-shadow: 0 0 40px rgba(226,180,95,1), inset 0 2px 6px rgba(255,255,255,.6); } 100%{ box-shadow: 0 0 18px rgba(226,180,95,.6), inset 0 2px 6px rgba(255,255,255,.6); } } </style> </head> <body> <button class="music-btn" id="musicBtn">▶</button> <audio id="audio" src="cancion.mp3"></audio> <script> const audio = document.getElementById("audio"); const btn = document.getElementById("musicBtn"); btn.onclick = () => { if(audio.paused){ audio.play(); btn.textContent = "❚❚"; btn.classList.add("playing"); }else{ audio.pause(); btn.textContent = "▶"; btn.classList.remove("playing"); } }; audio.onended = () => { btn.textContent = "▶"; btn.classList.remove("playing"); }; </script> </body> </html> 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Music Button Elegant</title>
+
+<style>
+  body{
+    margin:0;
+    background:transparent;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+  }
+
+  .music-btn{
+    width:40px;   /* ⬅ más pequeño */
+    height:40px;
+    border-radius:50%;
+    border:1.5px solid rgba(255,255,255,.55);
+    cursor:pointer;
+
+    background:
+      radial-gradient(circle at top,
+        #fff9e8 0%,
+        #f3d08b 40%,
+        #e2b45f 100%
+      );
+
+    color:#7a3b8f;
+    font-size:14px;  /* ⬅ icono más chico */
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    box-shadow:
+      0 6px 14px rgba(0,0,0,.18),
+      0 0 18px rgba(226,180,95,.7),
+      inset 0 2px 4px rgba(255,255,255,.6),
+      inset 0 -4px 6px rgba(0,0,0,.15);
+
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+
+  .music-btn:hover{
+    transform:scale(1.08);
+    box-shadow:
+      0 8px 18px rgba(0,0,0,.22),
+      0 0 26px rgba(226,180,95,1),
+      inset 0 2px 4px rgba(255,255,255,.6),
+      inset 0 -4px 6px rgba(0,0,0,.15);
+  }
+
+  .music-btn.playing{
+    animation:glow 1.8s infinite ease-in-out;
+  }
+
+  @keyframes glow{
+    0%{
+      box-shadow:
+        0 0 12px rgba(226,180,95,.6),
+        inset 0 2px 4px rgba(255,255,255,.6);
+    }
+    50%{
+      box-shadow:
+        0 0 26px rgba(226,180,95,1),
+        inset 0 2px 4px rgba(255,255,255,.6);
+    }
+    100%{
+      box-shadow:
+        0 0 12px rgba(226,180,95,.6),
+        inset 0 2px 4px rgba(255,255,255,.6);
+    }
+  }
+</style>
+</head>
+
+<
